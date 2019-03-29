@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_background"
+    tools:context=".Translator.sendCustomOffer"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="411dp"
+        android:layout_height="52dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/required_feilds_error_message"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="86dp"
+        android:text="Specify document price:"
+        android:textSize="22sp"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="206dp"
+        android:textColor="#000"
+        android:text="Comments:"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customOfferData1" />
+
+    <EditText
+        android:id="@+id/customPrice"
+        android:layout_width="199dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/customOfferComment"
+        android:layout_width="245dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="112dp"
+        android:ems="10"
+        android:hint="(Optional)"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/customSendToCustomer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/customSendToCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="86dp"
+        android:background="@drawable/select_issue_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customOfferComment" />
+
+    <TextView
+        android:id="@+id/customOfferData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="138dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/selectDeadline"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/customOfferData1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customPrice" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="87dp"
+        android:text="SR"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/customPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/customOfferData1"
+        android:layout_width="175dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="146dp"
+        android:text="No date selected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customOfferData" />
+</android.support.constraint.ConstraintLayout>
