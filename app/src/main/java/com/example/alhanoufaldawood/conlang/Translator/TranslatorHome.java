@@ -13,6 +13,8 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.alhanoufaldawood.conlang.Customer.CustomerHome;
+import com.example.alhanoufaldawood.conlang.Customer.Profile;
 import com.example.alhanoufaldawood.conlang.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -65,8 +67,8 @@ public class TranslatorHome extends AppCompatActivity {
 
                     case R.id.profile:
                         // ToDo navigate to profile page
-                        //Intent profilePage = new Intent(TranslatorHome.this, SignUp.class);
-                        //startActivity(profilePage);
+                        Intent profilePage = new Intent(TranslatorHome.this, ProfileT.class);
+                        startActivity(profilePage);
                         break;
 
                     case R.id.signout:

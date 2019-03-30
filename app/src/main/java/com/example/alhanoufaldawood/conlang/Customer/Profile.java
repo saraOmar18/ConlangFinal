@@ -1,10 +1,14 @@
 package com.example.alhanoufaldawood.conlang.Customer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,73 +24,89 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
 
-    private TextView profileName,profileEmail,profilePhone ;
-    private Button btnEdit ;
+    private EditText profileName, profileEmail, profilePhone;
+    private Button btnEdit;
     FirebaseAuth firebaseAuth;
-    String Id ;
-    DatabaseReference databaseref ;
-
-
+    String Id;
+    DatabaseReference databaseref;
+    Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        profileName =(TextView)findViewById(R.id.Name) ;
-        profileEmail = (TextView)findViewById(R.id.Email) ;
-        profilePhone = (TextView)findViewById(R.id.Phone) ;
-        btnEdit=(Button)findViewById(R.id.Edit) ;
-
+        context = this;
+        Intent intent;
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseref = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-         String id = user.getUid();//easy to refer
-
-
+        String id = user.getUid();//easy to refer
 
 
         databaseref.child("Customers").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               // UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-
-//                String fname = dataSnapshot.child("Name").getValue().toString();
-             //   String cemail = dataSnapshot.child("email").getValue().toString();
-              //  String cphone = dataSnapshot.child("phone").getValue().toString();
+                // UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+                String fname = dataSnapshot.child("name").getValue(String.class);
+                String cemail = dataSnapshot.child("email").getValue(String.class);
+                String cphone = dataSnapshot.child("phone").getValue(String.class);
 
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-                profileName.setText(userProfile.getname());
-                profileEmail.setText(userProfile.getemail());
-                profilePhone.setText(userProfile.getphone());
-               /* profileName.setText(fname);
-                profileEmail.setText(cemail);
-                profilePhone.setText(cphone);*/
 
+                profileName = (EditText) findViewById(R.id.Name);
+                profileName.setText(fname);
+
+                profileEmail = (EditText) findViewById(R.id.Email);
+                profileEmail.setText(cemail);
+
+                profilePhone = (EditText) findViewById(R.id.Phone);
+                profilePhone.setText(cphone);
+
+                btnEdit = (Button) findViewById(R.id.Edit);
 
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Profile.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Profile.this, "Please make sure you are connected to Internet", Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    public void chickInfo(View view) {
 
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Profile.this, UpdateProfile.class);
-                startActivity(i);
-            }
-        });
+        final String phoneN = profilePhone.getText().toString().trim();
+
+        final String fnameP = profileName.getText().toString().trim();
+        final String emaill = profileEmail.getText().toString().trim();
+
+        FirebaseUser customer = FirebaseAuth.getInstance().getCurrentUser();
+        String idCustomer = customer.getUid();
+        if (!TextUtils.isEmpty(phoneN) && !TextUtils.isEmpty(fnameP) && !TextUtils.isEmpty(emaill)) {
+            DatabaseReference owner = FirebaseDatabase.getInstance().getReference("Customers").child(idCustomer);
+
+
+            owner.child("name").setValue(fnameP);
+            owner.child("phone").setValue(phoneN);
+            owner.child("email").setValue(emaill);
+
+            Toast.makeText(Profile.this, "Saved Changes", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(Profile.this, "Please Fill All The Required Field", Toast.LENGTH_SHORT).show();
+    };
+
 
 
     }
 
 
-}
+
+
+
+

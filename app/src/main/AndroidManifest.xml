@@ -62,7 +62,6 @@
             android:name=".Customer.RequestService"
             android:parentActivityName=".Customer.RequestService" />
         <activity android:name=".Customer.Profile" />
-        <activity android:name=".Customer.UpdateProfile" />
         <activity
             android:name=".Translator.RequestRegistration2"
             android:parentActivityName=".Translator.RequestRegistration" />
@@ -83,6 +82,7 @@
             android:name=".Translator.custom_pdf_viewer"
             android:parentActivityName=".Translator.TranslatorHome" />
         <activity android:name=".Translator.sendOffer" />
+        <activity android:name=".Translator.ProfileT" />
         <activity android:name=".Translator.sendCustomOffer" />
         <activity android:name=".Translator.Custom_request_pdf_viewer" />
         <activity android:name=".Customer.PayClass" />
