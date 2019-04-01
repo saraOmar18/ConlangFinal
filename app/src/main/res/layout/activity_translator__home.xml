@@ -41,6 +41,8 @@
         app:menu="@menu/translator_home"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemTextColor="@color/grey"
+        app:itemIconTint="@color/colorPrimaryDark"
 
 
         />

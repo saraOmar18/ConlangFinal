@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.alhanoufaldawood.conlang.R;
@@ -29,7 +33,8 @@ public class TranslatorsListFragment extends Fragment {
     DatabaseReference ref;
     public static  String translatorId="";
 
-
+    Button requestServive;
+    EditText searchText;
     List<Translator> translatorsList;
 
     Activity context;
@@ -43,15 +48,17 @@ public class TranslatorsListFragment extends Fragment {
         //database.setValue("Hello world");
         translatorsList = new ArrayList<>();
         listViewTranslator = (ListView) myFragmentView.findViewById(R.id.translator_listview);
+        requestServive = (Button) myFragmentView.findViewById(R.id.request);
+        searchText = (EditText) myFragmentView.findViewById(R.id.searchText);
 
         context = getActivity();
 
         ref = FirebaseDatabase.getInstance().getReference("Translators");
-      //final Translator test = new Translator("Najla",5,"English","Medical","Najla is student in king saud university bla bla bla bla","Translation ","French","true");
-      //ref.push().setValue(test);
+        //final Translator test = new Translator("Najla",5,"English","Medical","Najla is student in king saud university bla bla bla bla","Translation ","French","true");
+        //ref.push().setValue(test);
 
-       // Translator test1 = new Translator("Sara Aldawood",1,"English","IT");
-       // ref.push().setValue(test1);
+        // Translator test1 = new Translator("Sara Aldawood",1,"English","IT");
+        // ref.push().setValue(test1);
 
         listViewTranslator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,18 +125,64 @@ public class TranslatorsListFragment extends Fragment {
                         translatorsList.add(translator);
                     }
                 }
-
                 TranslatorListAdapter adapter = new TranslatorListAdapter(context , translatorsList);
-
                 listViewTranslator.setAdapter(adapter);
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+        });
+
+        requestServive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), PublicRequestService.class);
+                startActivity(i);
+            }
+        });
+
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                ArrayList<Translator> filteredList = new ArrayList<>();
+                String sText = searchText.getText().toString().toLowerCase();
+                if(!sText.isEmpty())
+                {
+                    filteredList.clear();
+                    for(Translator t : translatorsList)
+                    {
+                        if(t.getName().toLowerCase().indexOf(sText) > -1 ||
+                                t.getField().toLowerCase().indexOf(sText)>-1 ||
+                                t.getLanguage().toLowerCase().indexOf(sText) >-1||
+                                t.getProvidedLanguage().toLowerCase().indexOf(sText)>-1
+                        )
+                        {
+                            filteredList.add(t);
+                        }
+                    }
+                    TranslatorListAdapter adapter = new TranslatorListAdapter(context, filteredList);
+                    listViewTranslator.setAdapter(adapter);
+                }
+                else {
+                    TranslatorListAdapter adapter = new TranslatorListAdapter(context, translatorsList);
+                    listViewTranslator.setAdapter(adapter);
+                }
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+            }
+
         });
 
     }

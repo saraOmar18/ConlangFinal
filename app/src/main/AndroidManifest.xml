@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:installLocation="preferExternal"
-    package="com.example.alhanoufaldawood.conlang">
+    package="com.example.alhanoufaldawood.conlang"
+    android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Customer.PublicRequestService"></activity>
+        <activity android:name=".Translator.ProfileT" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,7 +84,6 @@
             android:name=".Translator.custom_pdf_viewer"
             android:parentActivityName=".Translator.TranslatorHome" />
         <activity android:name=".Translator.sendOffer" />
-        <activity android:name=".Translator.ProfileT" />
         <activity android:name=".Translator.sendCustomOffer" />
         <activity android:name=".Translator.Custom_request_pdf_viewer" />
         <activity android:name=".Customer.PayClass" />
@@ -98,12 +99,10 @@
         <activity
             android:name=".Translator.TranslatorOrderDetails"
             android:parentActivityName=".Translator.TranslatorHome" />
-
-        <activity android:name=".Chatting"
+        <activity
+            android:name=".Chatting"
             android:parentActivityName=".Chatting" />
-
-     <activity android:name=".Translator.EditInformation">
-     </activity>
+        <activity android:name=".Translator.EditInformation" />
     </application>
 
 </manifest>
