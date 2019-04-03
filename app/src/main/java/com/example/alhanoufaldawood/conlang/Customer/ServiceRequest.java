@@ -32,7 +32,7 @@ public class ServiceRequest implements Serializable {
         this.comment = comment;
         this.fileURL = fileURL;
         this.translatorID = translatorID;
-        this.customerID = customerID;
+        customerID = customerID;
         this.status = status;
         this.orderNo = orderNo;
         this.name = name;
@@ -43,6 +43,15 @@ public class ServiceRequest implements Serializable {
         this.customerImage = customerImage;
         this.translatorImage = translatorImage;
     }
+
+    public String getcustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
 
     public String getCustomerImage() {
         return customerImage;
@@ -116,13 +125,6 @@ public class ServiceRequest implements Serializable {
         this.translatorID = translatorID;
     }
 
-    public String getcustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
 
     public String getstatus() {
         return status;

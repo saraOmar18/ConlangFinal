@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.alhanoufaldawood.conlang.Forget_password;
+import com.example.alhanoufaldawood.conlang.NotificationService;
 import com.example.alhanoufaldawood.conlang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -174,12 +175,17 @@ public class LoginCustomer extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             userType = dataSnapshot.child("type").getValue().toString();
 
-
-
                                             if (userType.equals("Customer")) {
                                                 Intent i = new Intent(LoginCustomer.this, CustomerHome.class);
                                                 startActivity(i);
-                                                finish();
+
+                                                // use this to start and trigger a service
+                                                Intent s= new Intent(LoginCustomer.this, NotificationService.class);
+                                                s.putExtra("user", new String[]{userID,userType});
+                                                startService(s);
+
+
+                                                //finish();
 
 
                                             } else {
@@ -234,7 +240,7 @@ public class LoginCustomer extends AppCompatActivity {
                     btnLogin.setBackground(ContextCompat.getDrawable(LoginCustomer.this, R.drawable.signin_btn));// set here your backgournd to button
                 }
 
-        }});
+            }});
 
         inputEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -253,7 +259,7 @@ public class LoginCustomer extends AppCompatActivity {
                     btnLogin.setBackground(ContextCompat.getDrawable(LoginCustomer.this, R.drawable.signin_btn_onclick));// set here your backgournd to button
                 }else {
                     btnLogin.setBackground(ContextCompat.getDrawable(LoginCustomer.this, R.drawable.signin_btn));// set here your backgournd to button
-               }
+                }
             }
         });
 

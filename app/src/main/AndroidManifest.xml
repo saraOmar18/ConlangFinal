@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.alhanoufaldawood.conlang"
-    android:installLocation="preferExternal">
+    android:installLocation="preferExternal"
+    package="com.example.alhanoufaldawood.conlang">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,8 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Customer.PublicRequestService"></activity>
-        <activity android:name=".Translator.ProfileT" />
+        <service
+            android:name=".NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +65,10 @@
         <activity
             android:name=".Customer.RequestService"
             android:parentActivityName=".Customer.RequestService" />
+        <activity
+            android:name=".Customer.PublicRequestService"
+            android:parentActivityName=".Customer.PublicRequestService" />
+
         <activity android:name=".Customer.Profile" />
         <activity
             android:name=".Translator.RequestRegistration2"
@@ -99,10 +105,11 @@
         <activity
             android:name=".Translator.TranslatorOrderDetails"
             android:parentActivityName=".Translator.TranslatorHome" />
-        <activity
-            android:name=".Chatting"
+
+        <activity android:name=".Chatting"
             android:parentActivityName=".Chatting" />
-        <activity android:name=".Translator.EditInformation" />
+
+
     </application>
 
 </manifest>

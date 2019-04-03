@@ -18,10 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.alhanoufaldawood.conlang.NotificationService;
 import com.example.alhanoufaldawood.conlang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -44,7 +44,7 @@ public class LoginTranslator extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private DatabaseReference RefDatabase;
-    private String userID, userType, userStatus;
+    private String userID, userType;
     private Button btnLogin;
     private Button requestAccess;
     private Button forgetPass;
@@ -58,7 +58,7 @@ public class LoginTranslator extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseApp.initializeApp(this);
+
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#707070'>"+"Back"+" </font>"));
@@ -161,7 +161,6 @@ public class LoginTranslator extends AppCompatActivity {
                                     FirebaseUser currentUser  = FirebaseAuth.getInstance().getCurrentUser();
                                     userID = currentUser.getUid();
 
-
                                     //according to their user id get the user type
                                     RefDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
                                     RefDatabase.addValueEventListener(new ValueEventListener() {
@@ -169,32 +168,19 @@ public class LoginTranslator extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             userType = dataSnapshot.child("type").getValue().toString();
+
+
                                             if (userType.equals("translator")) {
-                                                RefDatabase = FirebaseDatabase.getInstance().getReference().child("Translators").child(userID);
-                                                RefDatabase.addValueEventListener(new ValueEventListener() {
+                                                Intent i = new Intent(LoginTranslator.this, TranslatorHome.class);
+                                                startActivity(i);
 
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        userStatus = dataSnapshot.child("edit").getValue().toString();
-                                                        if(userStatus.equalsIgnoreCase("false")){
-                                                            Intent i = new Intent(LoginTranslator.this, EditInformation.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                        else{
-                                                            Intent i = new Intent(LoginTranslator.this, TranslatorHome.class);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    }
+                                                // use this to start and trigger a service
+                                                Intent s= new Intent(LoginTranslator.this, NotificationService.class);
+                                                s.putExtra("user", new String[]{userID,userType});
+                                                startService(s);
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                    }
-
-                                                });
-
+                                                finish();
 
                                                 // this is the version with admin interface only for developers and testers !
                                             } else {
