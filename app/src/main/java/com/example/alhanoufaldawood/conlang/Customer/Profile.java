@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
 
-    private EditText profileName, profileEmail, profilePhone;
+    private EditText profileName,profilePhone;
     private Button btnEdit;
     FirebaseAuth firebaseAuth;
     String Id;
@@ -51,7 +51,6 @@ public class Profile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
                 String fname = dataSnapshot.child("name").getValue(String.class);
-                String cemail = dataSnapshot.child("email").getValue(String.class);
                 String cphone = dataSnapshot.child("phone").getValue(String.class);
 
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
@@ -59,8 +58,7 @@ public class Profile extends AppCompatActivity {
                 profileName = (EditText) findViewById(R.id.Name);
                 profileName.setText(fname);
 
-                profileEmail = (EditText) findViewById(R.id.Email);
-                profileEmail.setText(cemail);
+
 
                 profilePhone = (EditText) findViewById(R.id.Phone);
                 profilePhone.setText(cphone);
@@ -84,21 +82,29 @@ public class Profile extends AppCompatActivity {
         final String phoneN = profilePhone.getText().toString().trim();
 
         final String fnameP = profileName.getText().toString().trim();
-        final String emaill = profileEmail.getText().toString().trim();
+
 
         FirebaseUser customer = FirebaseAuth.getInstance().getCurrentUser();
         String idCustomer = customer.getUid();
-        if (!TextUtils.isEmpty(phoneN) && !TextUtils.isEmpty(fnameP) && !TextUtils.isEmpty(emaill)) {
+        if (!TextUtils.isEmpty(phoneN) && !TextUtils.isEmpty(fnameP) ) {
             DatabaseReference owner = FirebaseDatabase.getInstance().getReference("Customers").child(idCustomer);
 
 
             owner.child("name").setValue(fnameP);
             owner.child("phone").setValue(phoneN);
-            owner.child("email").setValue(emaill);
+
 
             Toast.makeText(Profile.this, "Saved Changes", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(Profile.this, "Please Fill All The Required Field", Toast.LENGTH_SHORT).show();
+
+        if(phoneN.length()>10 || phoneN.length()>10 ) {
+            profilePhone.setError(" Incorrect Phone Number ");
+            profilePhone.requestFocus();
+            return;
+
+        }
+
     };
 
 

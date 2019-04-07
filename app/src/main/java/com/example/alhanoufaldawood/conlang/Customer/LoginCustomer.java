@@ -177,6 +177,7 @@ public class LoginCustomer extends AppCompatActivity {
 
                                             if (userType.equals("Customer")) {
                                                 Intent i = new Intent(LoginCustomer.this, CustomerHome.class);
+                                                i.putExtra("user", new String[]{userID,userType});
                                                 startActivity(i);
 
                                                 // use this to start and trigger a service

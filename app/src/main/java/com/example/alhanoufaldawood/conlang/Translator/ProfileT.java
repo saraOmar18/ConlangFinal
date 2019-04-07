@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileT extends AppCompatActivity {
-    private EditText profileName, profileEmail,profileField,language,providedLanguage,bio;
+    private EditText profileName,profileField,language,providedLanguage,bio;
     private Button btnEdit;
     FirebaseAuth firebaseAuth;
     String Id;
@@ -49,7 +49,7 @@ public class ProfileT extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
                 String fname = dataSnapshot.child("name").getValue(String.class);
-                String cemail = dataSnapshot.child("email").getValue(String.class);
+
                 String field = dataSnapshot.child("field").getValue(String.class);
                 String lang = dataSnapshot.child("language").getValue(String.class);
                 String plang = dataSnapshot.child("providedLanguage").getValue(String.class);
@@ -60,8 +60,7 @@ public class ProfileT extends AppCompatActivity {
                 profileName = (EditText) findViewById(R.id.NameT);
                 profileName.setText(fname);
 
-                profileEmail = (EditText) findViewById(R.id.Email);
-                profileEmail.setText(cemail);
+
 
                 profileField = (EditText) findViewById(R.id.field);
                 profileField.setText(field);
@@ -94,7 +93,6 @@ public class ProfileT extends AppCompatActivity {
 
 
         final String fnameP = profileName.getText().toString().trim();
-        final String emaill = profileEmail.getText().toString().trim();
         final String ff = profileField.getText().toString().trim();
         final String lan = language.getText().toString().trim();
         final String plan = providedLanguage.getText().toString().trim();
@@ -106,13 +104,12 @@ public class ProfileT extends AppCompatActivity {
 
         FirebaseUser customer = FirebaseAuth.getInstance().getCurrentUser();
         String idTrans = customer.getUid();
-        if (!TextUtils.isEmpty(ff) && !TextUtils.isEmpty(fnameP) && !TextUtils.isEmpty(emaill) && !TextUtils.isEmpty(lan) && !TextUtils.isEmpty(plan) && !TextUtils.isEmpty(bb)) {
+        if (!TextUtils.isEmpty(ff) && !TextUtils.isEmpty(fnameP) && !TextUtils.isEmpty(lan) && !TextUtils.isEmpty(plan) && !TextUtils.isEmpty(bb)) {
             DatabaseReference owner = FirebaseDatabase.getInstance().getReference("Translators").child(idTrans);
 
 
             owner.child("name").setValue(fnameP);
             owner.child("field").setValue(ff);
-            owner.child("email").setValue(emaill);
             owner.child("language").setValue(lan);
             owner.child("providedLanguage").setValue(plan);
             owner.child("bio").setValue(bb);

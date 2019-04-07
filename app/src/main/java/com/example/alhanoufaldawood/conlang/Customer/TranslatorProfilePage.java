@@ -72,7 +72,7 @@ public class TranslatorProfilePage extends AppCompatActivity {
 
                 translator = dataSnapshot.getValue(Translator.class);
                 ratingBar.setNumStars(5);
-                ratingBar.setRating((float) translator.getRate());
+                ratingBar.setRating(Float.parseFloat(translator.getRate()));
                 name.setText(translator.getName());
                 bio.setText(translator.getBio());
                 langauge.setText(translator.getProvidedLanguage());

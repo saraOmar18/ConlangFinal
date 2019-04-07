@@ -13,7 +13,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.example.alhanoufaldawood.conlang.Customer.CustomerHome;
 import com.example.alhanoufaldawood.conlang.Customer.ServiceRequest;
-import com.example.alhanoufaldawood.conlang.Customer.Translator;
 import com.example.alhanoufaldawood.conlang.Translator.TranslatorHome;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +38,7 @@ public class NotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final String[] userData = intent.getStringArrayExtra("Users");
+        final String[] userData = intent.getStringArrayExtra("user");
 
         final DatabaseReference ref=  FirebaseDatabase.getInstance().getReference("Orders");
 
@@ -104,7 +103,7 @@ public class NotificationService extends Service {
             mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
 
         Notification notification =
-                 new NotificationCompat.Builder(this)
+                new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(message)

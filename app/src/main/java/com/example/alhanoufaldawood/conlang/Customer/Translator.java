@@ -3,7 +3,7 @@ package com.example.alhanoufaldawood.conlang.Customer;
 public class Translator {
 
     private String name;
-    private float rate;
+    private String rate;
     private String language;
     private String field;
     private String bio;
@@ -12,6 +12,9 @@ public class Translator {
     private String edit;
     private String type;
     private String image;
+    private String AvrRate ;
+    private String numOfRate ;
+
 
 
     public Translator() {
@@ -19,7 +22,7 @@ public class Translator {
     }
 
 
-    public Translator(String name, float rate, String language, String field, String bio, String education, String providedLanguage,String edit,String type, String image) {
+    public Translator(String name, String rate, String language, String field, String bio, String education, String providedLanguage,String edit,String type, String image,String numOfRate,String AvrRate) {
 
         this.name = name;
         this.rate = rate;
@@ -31,7 +34,8 @@ public class Translator {
         this.edit =edit;
         this.type = type;
         this.image = image;
-
+         this.AvrRate=AvrRate ;
+         this.numOfRate=numOfRate ;
 
 
     }
@@ -54,11 +58,11 @@ public class Translator {
         this.name = name;
     }
 
-    public float getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(float rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
@@ -119,4 +123,21 @@ public class Translator {
 
 
     }
+    public String getAvrRate() {
+        return AvrRate;
+    }
+
+    public void setAvrRate(String avrRate) {
+        AvrRate = avrRate;
+    }
+
+    public String getNumOfRate() {
+        return numOfRate;
+    }
+
+    public void setNumOfRate(String numOfRate) {
+        this.numOfRate = numOfRate;
+    }
+
+
 }

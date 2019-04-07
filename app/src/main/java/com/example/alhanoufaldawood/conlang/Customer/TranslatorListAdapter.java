@@ -53,7 +53,7 @@ public class TranslatorListAdapter extends ArrayAdapter<Translator> {
         language.setText(translator.getLanguage());
 
        RatingBar rate = (RatingBar) listViewItem.findViewById(R.id.ratingBar);
-       rate.setRating(translator.getRate());
+       rate.setRating(Float.parseFloat(translator.getRate()));
 
         TextView feild = (TextView) listViewItem.findViewById(R.id.feild);
         feild.setText(translator.getField());
