@@ -53,7 +53,7 @@ public class reportIssue extends AppCompatActivity implements View.OnClickListen
         desc = findViewById(R.id.description);
         // ToDo current user ;
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reporterId = user.getUid();
+        reporterId = user.getEmail();
 
 
         selec_file_error_message = (ImageView) findViewById(R.id.imageView12);
