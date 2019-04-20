@@ -67,7 +67,7 @@ public class ReportIssue extends AppCompatActivity implements View.OnClickListen
         // ToDo check current user not equal null.
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        currentUser =user.getUid();
+        currentUser =user.getEmail();
 
 
 

@@ -28,11 +28,11 @@ public class Rate extends AppCompatActivity {
         String totalRate;
         String numOfRating;
         String rating;
-        double ratingStr;
-        double r;
-        double totald;
-        double numd;
-        double numOfRatingd;
+        float ratingStr;
+    float r;
+    float totald;
+    float numd;
+    float numOfRatingd;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class Rate extends AppCompatActivity {
             send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    r=ratingRatingBar.getRating();
+                    r= ratingRatingBar.getRating();
                     calculateAvr();
 
                     //Add to DB.
@@ -99,8 +99,8 @@ public class Rate extends AppCompatActivity {
 
         public void calculateAvr() {
             //convert string to double.
-            totald = Double.parseDouble(totalRate);
-            numd = Double.parseDouble(numOfRating);
+            totald = Float.parseFloat(totalRate);
+            numd = Float.parseFloat(numOfRating);
             numOfRatingd = numd + 1;
 
             //calculate the avr.

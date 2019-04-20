@@ -39,6 +39,8 @@
             android:name=".Customer.SignUp"
             android:parentActivityName=".Customer.LoginCustomer" />
         <activity android:name=".Customer.CustomerHome" />
+        <activity android:name=".Translator.ProfileT" />
+
         <activity
             android:name=".Translator.TranslatorRegistrationRequest"
             android:parentActivityName=".Translator.RequestRegistration2" />

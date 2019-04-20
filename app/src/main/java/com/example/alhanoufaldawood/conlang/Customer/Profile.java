@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alhanoufaldawood.conlang.R;
+import com.google.android.gms.common.util.NumberUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.common.StringUtils;
 
 
 public class Profile extends AppCompatActivity {
@@ -79,31 +81,48 @@ public class Profile extends AppCompatActivity {
     public void chickInfo(View view) {
 
 
-        final String phoneN = profilePhone.getText().toString().trim();
+        final String phoneN =""+ profilePhone.getText().toString().trim();
 
         final String fnameP = profileName.getText().toString().trim();
+         char mychar;
+         String theString="";
+         for(int i=0;i<phoneN.length();i++){
+          mychar=phoneN.charAt(i);
+          if(!(NumberUtils.isNumeric(mychar+""))){
+             theString=phoneN.substring(0,i-1);
+          }
+         }
 
 
         FirebaseUser customer = FirebaseAuth.getInstance().getCurrentUser();
         String idCustomer = customer.getUid();
-        if (!TextUtils.isEmpty(phoneN) && !TextUtils.isEmpty(fnameP) ) {
-            DatabaseReference owner = FirebaseDatabase.getInstance().getReference("Customers").child(idCustomer);
 
+
+
+       if (!TextUtils.isEmpty(theString) && !TextUtils.isEmpty(fnameP) ) {
+
+           if (theString.length() > 10 || theString.length() < 10) {
+               profilePhone.setError(" Incorrect Phone Number ");
+               profilePhone.requestFocus();
+               return;}
+
+            DatabaseReference owner = FirebaseDatabase.getInstance().getReference("Customers").child(idCustomer);
 
             owner.child("name").setValue(fnameP);
             owner.child("phone").setValue(phoneN);
 
 
             Toast.makeText(Profile.this, "Saved Changes", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(Profile.this, "Please Fill All The Required Field", Toast.LENGTH_SHORT).show();
-
-        if(phoneN.length()>10 || phoneN.length()>10 ) {
-            profilePhone.setError(" Incorrect Phone Number ");
-            profilePhone.requestFocus();
-            return;
-
         }
+
+
+
+
+            else
+               Toast.makeText(Profile.this, "Please Fill All The Required Field", Toast.LENGTH_SHORT).show();
+
+
+
 
     };
 
